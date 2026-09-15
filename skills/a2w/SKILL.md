@@ -3,7 +3,7 @@ name: a2w
 description: Draft, rewrite, or review prose to remove generic, inflated, repetitive, and formulaic writing while preserving facts, intent, voice, and necessary technical detail. Use for reports, documentation, emails, articles, explanations, and other prose; do not apply its style rules to code or verbatim quotations.
 license: MIT
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
   compatibility: "Agent Skills-compatible clients; optional checker requires Python 3.9+"
 ---
 
@@ -22,10 +22,9 @@ of these:
 
 - `plan`: establish the writing contract, evidence needs, structure, and risks
   without drafting unless requested;
-- `check`: report concrete issues and their locations without rewriting;
-- `edit`: return revised prose while preserving meaning and evidence;
-- `explain`: explain reported issues and possible corrections without applying
-  them.
+- `review`: report concrete issues, locations, brief reasons, and suggested
+  directions without rewriting;
+- `edit`: return revised prose while preserving meaning and evidence.
 
 When no mode is supplied, infer the least invasive action from the request. Do
 not silently rewrite text when the user asks only for evaluation.

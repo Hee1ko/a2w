@@ -1,7 +1,7 @@
 # A2W
 
 A2W (Anti-AI Writer) is an evidence-first writing skill for AI agents. It
-checks and edits formulaic prose while preserving facts, meaning, technical
+reviews and edits formulaic prose while preserving facts, meaning, technical
 terms, and the author's legitimate voice.
 
 The project targets Agent Skills-compatible clients, including Codex, Claude
@@ -9,7 +9,14 @@ Code, and Kiro.
 
 ## Status
 
-Pre-release. The portable skill is under `skills/a2w`.
+Current pre-release: **v0.2.0**. The portable skill is under `skills/a2w`.
+
+## Version history
+
+| Version | Date | Changes |
+|---|---|---|
+| 0.2.0 | 2026-09-15 | Renamed `check` to `review`. Review findings now include a brief explanation, so the separate `explain` command was removed. |
+| 0.1.0 | 2026-09-15 | Initial pre-release with `plan`, `check`, `edit`, and `explain`, plus the deterministic prose checker. |
 
 ## How A2W activates
 
@@ -28,10 +35,10 @@ Codex uses `$a2w`; Claude Code and Kiro use `/a2w`.
 
 ```text
 # Codex
-$a2w check report.md
+$a2w review report.md
 
 # Claude Code or Kiro
-/a2w check report.md
+/a2w review report.md
 ```
 
 Text after the command tells A2W which mode to use and what content or file to
@@ -65,20 +72,21 @@ The plan should cover:
 `plan` does not invent evidence to fill gaps. It identifies what the author
 needs to provide.
 
-### `check`
+### `review`
 
-Use `check` for diagnosis without rewriting. A2W reports specific problems,
-explains why they weaken the prose, and points to the affected passage.
+Use `review` for diagnosis without rewriting. A2W reports specific problems,
+points to the affected passage, briefly explains why each problem matters, and
+suggests a direction for improvement.
 
 ```text
-$a2w check report.md
+$a2w review report.md
 ```
 
 ```text
-/a2w check "This platform provides a complete solution for modern teams..."
+/a2w review "This platform provides a complete solution for modern teams..."
 ```
 
-A check can identify:
+A review can identify:
 
 - generic claims that could describe an unrelated project;
 - unsupported significance, authority, numbers, or conclusions;
@@ -89,8 +97,14 @@ A check can identify:
 - uniform sentence or paragraph rhythm;
 - changes that could damage technical accuracy or the author's voice.
 
-`check` returns findings and suggested directions while leaving the source
-unchanged.
+`review` leaves the source unchanged. Each finding should contain:
+
+```text
+Location: paragraph 3
+Issue: Generic claim
+Reason: The sentence does not identify a benefit or supporting result.
+Direction: Add the measured interval, stored fields, or dashboard outcome.
+```
 
 ### `edit`
 
@@ -125,24 +139,6 @@ the file changed:
 ```text
 $a2w edit report.md and show the proposed revision without modifying the file
 ```
-
-### `explain`
-
-Use `explain` when you want to understand a problem or recommendation without
-applying an edit.
-
-```text
-$a2w explain why this introduction sounds generic:
-<paste introduction>
-```
-
-```text
-/a2w explain the findings from the check on report.md
-```
-
-A2W should connect each recommendation to the text. It should explain what the
-passage currently does, why that causes a problem for this audience, and what
-kind of change would improve it.
 
 ### No mode
 
