@@ -1,0 +1,4 @@
+interface:
+  display_name: "A2W"
+  short_description: "Make prose specific, direct, and faithful"
+  default_prompt: "Use $a2w to check this prose and explain the most important improvements."
