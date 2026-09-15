@@ -1,7 +1,7 @@
 ---
 name: a2w
 description: Draft, rewrite, or review prose to remove generic, inflated, repetitive, and formulaic writing while preserving facts, intent, voice, and necessary technical detail. Use for reports, documentation, emails, articles, explanations, and other prose; do not apply its style rules to code or verbatim quotations.
-license: Apache-2.0
+license: MIT
 metadata:
   version: "0.1.0"
   compatibility: "Agent Skills-compatible clients; optional checker requires Python 3.9+"

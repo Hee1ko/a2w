@@ -43,4 +43,6 @@ Findings are editorial review prompts. They are not evidence of AI authorship.
 
 ## Licence
 
-Apache License 2.0. See `LICENSE`.
+MIT License. You may use, copy, modify, and redistribute A2W, including for
+commercial use, as long as the copyright and licence notice remain included.
+See `LICENSE`.
