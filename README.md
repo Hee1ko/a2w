@@ -7,16 +7,31 @@ terms, and the author's legitimate voice.
 The project targets Agent Skills-compatible clients, including Codex, Claude
 Code, and Kiro.
 
-## Status
+## Quick start
 
-Current pre-release: **v0.2.0**. The portable skill is under `skills/a2w`.
+Install A2W globally for Codex, Claude Code, and Kiro:
 
-## Version history
+```bash
+npx skills add Hee1ko/a2w --skill a2w \
+  -a codex -a claude-code -a kiro-cli -g -y
+```
 
-| Version | Date | Changes |
-|---|---|---|
-| 0.2.0 | 2026-09-15 | Renamed `check` to `review`. Review findings now include a brief explanation, so the separate `explain` command was removed. |
-| 0.1.0 | 2026-09-15 | Initial pre-release with `plan`, `check`, `edit`, and `explain`, plus the deterministic prose checker. |
+Review a document without changing it:
+
+```text
+# Codex
+$a2w review report.md
+
+# Claude Code or Kiro
+/a2w review report.md
+```
+
+Preview an edited version, then apply it when ready:
+
+```text
+$a2w edit report.md
+$a2w edit report.md --apply
+```
 
 ## How A2W activates
 
@@ -100,17 +115,21 @@ A review can identify:
 `review` leaves the source unchanged. Each finding should contain:
 
 ```text
-Location: paragraph 3
+Location: README.md, "Commands" section, paragraph beginning "Use review..."
 Issue: Generic claim
 Reason: The sentence does not identify a benefit or supporting result.
 Direction: Add the measured interval, stored fields, or dashboard outcome.
 ```
 
+The location can be a line number, heading, paragraph number, sentence, or
+short quotation. A2W should use whichever reference lets the reader find the
+passage reliably.
+
 ### `edit`
 
-Use `edit` to revise prose. A2W removes formulaic writing while preserving
-facts, quotations, citations, uncertainty, technical terms, and legitimate
-voice.
+Use `edit` to preview revised prose. A2W removes formulaic writing while
+preserving facts, quotations, citations, uncertainty, technical terms, and
+legitimate voice.
 
 ```text
 $a2w edit README.md
@@ -133,12 +152,16 @@ If the source lacks evidence, A2W keeps the limitation visible or asks for the
 missing information. A2W never creates statistics, citations, quotations,
 results, opinions, or personal experiences.
 
-When working in an agent with file access, ask for a preview if you do not want
-the file changed:
+An explicit `edit` command previews the revision without changing the named
+file. Add `--apply` to write the revision:
 
 ```text
-$a2w edit report.md and show the proposed revision without modifying the file
+$a2w edit report.md --apply
 ```
+
+This rule applies to explicit A2W commands. When A2W activates automatically,
+the agent follows the ordinary request: "update README.md" permits a file edit,
+while "suggest improvements to README.md" requests a preview.
 
 ### No mode
 
@@ -183,13 +206,17 @@ npx skills add Hee1ko/a2w --skill a2w \
   -a codex -a claude-code -a kiro-cli -g -y
 ```
 
-## Local checker
+## Development checker
 
-The bundled checker performs deterministic phrase and rhythm checks:
+Contributors working from the cloned A2W repository can run the bundled
+deterministic phrase and rhythm checker from the repository root:
 
 ```bash
 python3 skills/a2w/scripts/lint_prose.py path/to/document.md
 ```
+
+People using an installed skill can use `/a2w review` or `$a2w review` without
+calling this script directly.
 
 It can report canned openings, throat-clearing, inflated wording, formulaic
 contrasts, repeated sentence openings, and unusually uniform rhythm. Findings
@@ -214,6 +241,18 @@ A2W follows these rules in every mode:
 - do not deliberately add mistakes or awkward phrasing to appear human;
 - treat pattern matches as review prompts rather than forbidden words;
 - respect academic integrity and disclosure requirements.
+
+## Status
+
+Current pre-release: **v0.2.1**. The portable skill is under `skills/a2w`.
+
+## Version history
+
+| Version | Date | Changes |
+|---|---|---|
+| 0.2.1 | 2026-09-15 | Defined preview-by-default editing with `--apply`, added Quick Start, clarified review locations, and documented the checker as a contributor tool. |
+| 0.2.0 | 2026-09-15 | Renamed `check` to `review`. Review findings now include a brief explanation, so the separate `explain` command was removed. |
+| 0.1.0 | 2026-09-15 | Initial pre-release with `plan`, `check`, `edit`, and `explain`, plus the deterministic prose checker. |
 
 ## Licence
 

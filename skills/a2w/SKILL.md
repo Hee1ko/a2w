@@ -3,7 +3,7 @@ name: a2w
 description: Draft, rewrite, or review prose to remove generic, inflated, repetitive, and formulaic writing while preserving facts, intent, voice, and necessary technical detail. Use for reports, documentation, emails, articles, explanations, and other prose; do not apply its style rules to code or verbatim quotations.
 license: MIT
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
   compatibility: "Agent Skills-compatible clients; optional checker requires Python 3.9+"
 ---
 
@@ -24,10 +24,17 @@ of these:
   without drafting unless requested;
 - `review`: report concrete issues, locations, brief reasons, and suggested
   directions without rewriting;
-- `edit`: return revised prose while preserving meaning and evidence.
+- `edit`: preview revised prose while preserving meaning and evidence. When a
+  file is named in an explicit A2W command, modify it only if the command also
+  includes `--apply`.
 
 When no mode is supplied, infer the least invasive action from the request. Do
 not silently rewrite text when the user asks only for evaluation.
+
+The `--apply` rule governs explicit A2W commands. When A2W activates
+automatically for an ordinary request, follow the user's stated intent. For
+example, "update README.md" authorises editing that file, while "suggest
+improvements to README.md" does not.
 
 ## Establish the writing contract
 
